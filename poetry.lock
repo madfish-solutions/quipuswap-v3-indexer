@@ -879,6 +879,14 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "yapf"
+version = "0.32.0"
+description = "A formatter for Python code."
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "yarl"
 version = "1.8.2"
 description = "Yet another URL library"
@@ -893,7 +901,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.10,<3.11"
-content-hash = "154b7d4e39068871b4c4a6d9cc8d0cb17270e3e5ce510c3270e99e4d77d78df4"
+content-hash = "9fa0442f260f5146ec466ed8f845a4df9033e7b137fb4720ba87179d143ba18b"
 
 [metadata.files]
 aiohttp = []
@@ -1051,4 +1059,5 @@ tzdata = []
 tzlocal = []
 urllib3 = []
 websockets = []
+yapf = []
 yarl = []

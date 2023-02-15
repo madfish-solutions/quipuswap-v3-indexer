@@ -1,5 +1,5 @@
 spec_version: 1.2
-package: quipuswap-v3-indexer
+package: quipuswap_v3_indexer
 
 database:
   kind: postgres
@@ -12,10 +12,24 @@ database:
 
 contracts:
   v3_pool:
-    address: KT1K4EwTpbvYN9agJdjpyJm4ZZdhpUNKB3F6
+    address: KT1XfiFL1sfrncPUg8SNsgTFKsSS4e2fbT7f
     typename: v3_pool
 
 datasources:
-  tzkt_mainnet:
+  tzkt:
     kind: tzkt
     url: https://api.tzkt.io
+
+indexes:
+  factories:
+    kind: operation
+    datasource: tzkt
+    types:
+      - origination
+    first_level:
+      1430000
+    handlers:
+      - callback: on_pool_origination
+        pattern:
+          - type: origination
+            similar_to: v3_pool

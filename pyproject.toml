@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "quipuswap-v3-indexer"
+name = "quipuswap_v3_indexer"
 version = "0.1.0"
 description = "Simple and fast QuipuSwap v3 Segmented CFMM indexer"
 authors = ["Madfish <info@madfish.solutions>"]
@@ -10,6 +10,7 @@ python = ">=3.10,<3.11"
 dipdup = "^6.5.0"
 
 [tool.poetry.dev-dependencies]
+yapf = "^0.32.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

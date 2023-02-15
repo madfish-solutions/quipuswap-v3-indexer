@@ -1,0 +1,21 @@
+spec_version: 1.2
+package: quipuswap-v3-indexer
+
+database:
+  kind: postgres
+  host: db
+  port: 5432
+  user: dipdup
+  password: changeme
+  database: dipdup
+  schema_name: public
+
+contracts:
+  v3_pool:
+    address: KT1K4EwTpbvYN9agJdjpyJm4ZZdhpUNKB3F6
+    typename: v3_pool
+
+datasources:
+  tzkt_mainnet:
+    kind: tzkt
+    url: https://api.tzkt.io

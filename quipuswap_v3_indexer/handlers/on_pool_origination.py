@@ -44,7 +44,6 @@ async def on_pool_origination(
     ctx: HandlerContext,
     v3_pool_origination: OperationData,
 ) -> None:
-    print(v3_pool_origination.originated_contract_address)
     pool_address = v3_pool_origination.originated_contract_address
 
     token_x = await get_or_create_token(v3_pool_origination.storage['constants']['token_x'])
@@ -76,3 +75,9 @@ async def on_pool_origination(
             address=token_y.address,
             typename='fa12_token' if token_y.token_id is None else 'fa2_token'
         )
+
+    await ctx.add_index(f'swaps_{pool_address}', 'swaps', {
+        'pool': pool_address,
+        'token_x': token_x.address,
+        'token_y': token_y.address,
+    })

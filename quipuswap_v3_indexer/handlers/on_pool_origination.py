@@ -57,7 +57,6 @@ async def on_pool_origination(
     )
 
     if pool_address not in ctx.config.contracts:
-        print(ctx.config.contracts)
         await ctx.add_contract(
             name=pool_address,
             address=pool_address,
@@ -65,8 +64,6 @@ async def on_pool_origination(
         )
 
     if token_x.address not in ctx.config.contracts:
-        print("Trying to add address", token_x.address,
-              token_x.address in ctx.config.contracts, ctx.config.contracts.keys())
         await ctx.add_contract(
             name=token_x.address,
             address=token_x.address,
@@ -74,8 +71,6 @@ async def on_pool_origination(
         )
 
     if token_y.address not in ctx.config.contracts:
-        print("Trying to add address", token_y.address,
-              token_y.address in ctx.config.contracts, ctx.config.contracts.keys())
         await ctx.add_contract(
             name=token_y.address,
             address=token_y.address,

@@ -153,6 +153,18 @@ tests-no-zope = ["hypothesis", "pympler", "pytest (>=4.3.0)", "pytest-xdist", "c
 tests_no_zope = ["hypothesis", "pympler", "pytest (>=4.3.0)", "pytest-xdist", "cloudpickle", "mypy (>=0.971,<0.990)", "pytest-mypy-plugins"]
 
 [[package]]
+name = "autopep8"
+version = "2.0.1"
+description = "A tool that automatically formats Python code to conform to the PEP 8 style guide"
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+pycodestyle = ">=2.10.0"
+tomli = {version = "*", markers = "python_version < \"3.11\""}
+
+[[package]]
 name = "black"
 version = "22.12.0"
 description = "The uncompromising code formatter."
@@ -544,6 +556,14 @@ python-versions = ">=3.6"
 twisted = ["twisted"]
 
 [[package]]
+name = "pycodestyle"
+version = "2.10.0"
+description = "Python style guide checker"
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[[package]]
 name = "pydantic"
 version = "1.9.2"
 description = "Data validation and settings management using python type hints"
@@ -901,7 +921,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.10,<3.11"
-content-hash = "9fa0442f260f5146ec466ed8f845a4df9033e7b137fb4720ba87179d143ba18b"
+content-hash = "76d476ea42be29c0b7338db43be42dffae88d4a2045de17a0178bf055f2ef0a8"
 
 [metadata.files]
 aiohttp = []
@@ -927,6 +947,7 @@ async-timeout = [
 asyncclick = []
 asyncpg = []
 attrs = []
+autopep8 = []
 black = []
 certifi = []
 chardet = [
@@ -976,6 +997,7 @@ pathspec = []
 platformdirs = []
 prance = []
 prometheus-client = []
+pycodestyle = []
 pydantic = []
 pyhumps = []
 pyparsing = []

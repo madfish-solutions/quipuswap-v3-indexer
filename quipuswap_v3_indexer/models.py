@@ -7,7 +7,9 @@ class Pool(Model):
         table = 'pool'
 
     address = fields.CharField(max_length=42, pk=True)
-    tokens = fields.ManyToManyField('models.Token', through='pool_token')
+    token_x = fields.ForeignKeyField('models.Token', "token_x_pools")
+    token_y = fields.ForeignKeyField('models.Token', "token_y_pools")
+
 
 class Token(Model):
     class Meta:
@@ -19,6 +21,7 @@ class Token(Model):
     name = fields.TextField(null=True)
     symbol = fields.TextField(null=True)
     decimals = fields.IntField()
+
 
 class Swap(Model):
     class Meta:

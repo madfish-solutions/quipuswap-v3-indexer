@@ -3,71 +3,249 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Any, Dict, List, Union
 
 from pydantic import BaseModel, Extra
 
 
-class Ledger(BaseModel):
+class TokenXItem(BaseModel):
+
     class Config:
-        extra = Extra.forbid
+        extra = Extra.allow
 
-    allowances: Dict[str, str]
-    balance: str
-    frozen_balance: str
+    fa12: str
 
 
-class UserRewards(BaseModel):
+class Fa2(BaseModel):
+
     class Config:
-        extra = Extra.forbid
+        extra = Extra.allow
 
-    reward: str
-    reward_paid: str
-
-
-class Voters(BaseModel):
-    class Config:
-        extra = Extra.forbid
-
-    candidate: Optional[str]
-    last_veto: str
-    veto: str
-    vote: str
-
-
-class Storage(BaseModel):
-    class Config:
-        extra = Extra.forbid
-
-    baker_validator: str
-    current_candidate: Optional[str]
-    current_delegated: Optional[str]
-    last_update_time: str
-    last_veto: str
-    ledger: Dict[str, Ledger]
-    period_finish: str
-    reward: str
-    reward_paid: str
-    reward_per_sec: str
-    reward_per_share: str
-    tez_pool: str
+    token_id: str
     token_address: str
-    token_pool: str
-    total_reward: str
-    total_supply: str
-    total_votes: str
-    user_rewards: Dict[str, UserRewards]
-    veto: str
-    vetos: Dict[str, str]
-    voters: Dict[str, Voters]
-    votes: Dict[str, str]
+
+
+class TokenXItem1(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    fa2: Fa2
+
+
+class TokenYItem(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    fa12: str
+
+
+class Fa21(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    token_id: str
+    token_address: str
+
+
+class TokenYItem1(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    fa2: Fa21
+
+
+class Constants(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    factory_address: str
+    fee_bps: str
+    tick_spacing: str
+    token_x: Union[TokenXItem, TokenXItem1]
+    token_y: Union[TokenYItem, TokenYItem1]
+
+
+class Spl(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    block_start_liquidity_value: str
+    sum: str
+
+
+class Tick(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    block_start_value: str
+    sum: str
+
+
+class Map(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    spl: Spl
+    tick: Tick
+    time: str
+
+
+class CumulativesBuffer(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    first: str
+    last: str
+    map: Dict[str, Map]
+    reserved_length: str
+
+
+class DevFee(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    x: str
+    y: str
+
+
+class FeeGrowth(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    x: str
+    y: str
+
+
+class Key(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    exp: str
+    positive: bool
+
+
+class Value(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    offset: str
+    v: str
+
+
+class LadderItem(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    key: Key
+    value: Value
+
+
+class Key1(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    owner: str
+    operator: str
+    token_id: str
+
+
+class Operator(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    key: Key1
+    value: Dict[str, Any]
+
+
+class FeeGrowthInsideLast(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    x: str
+    y: str
+
+
+class Positions(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    fee_growth_inside_last: FeeGrowthInsideLast
+    liquidity: str
+    lower_tick_index: str
+    owner: str
+    upper_tick_index: str
+
+
+class FeeGrowthOutside(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    x: str
+    y: str
+
+
+class Ticks(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    fee_growth_outside: FeeGrowthOutside
+    liquidity_net: str
+    n_positions: str
+    next: str
+    prev: str
+    seconds_outside: str
+    seconds_per_liquidity_outside: str
+    sqrt_price: str
+    tick_cumulative_outside: str
+
+
+class TokenMetadata(BaseModel):
+
+    class Config:
+        extra = Extra.allow
+
+    token_id: str
+    token_info: Dict[str, str]
 
 
 class V3PoolStorage(BaseModel):
-    class Config:
-        extra = Extra.forbid
 
-    dex_lambdas: Dict[str, str]
+    class Config:
+        extra = Extra.allow
+
+    constants: Constants
+    cumulatives_buffer: CumulativesBuffer
+    cur_tick_index: str
+    cur_tick_witness: str
+    dev_fee: DevFee
+    fee_growth: FeeGrowth
+    ladder: List[LadderItem]
+    liquidity: str
     metadata: Dict[str, str]
-    storage: Storage
-    token_lambdas: Dict[str, str]
+    new_position_id: str
+    operators: List[Operator]
+    position_ids: Dict[str, List[str]]
+    positions: Dict[str, Positions]
+    sqrt_price: str
+    ticks: Dict[str, Ticks]
+    token_metadata: Dict[str, TokenMetadata]

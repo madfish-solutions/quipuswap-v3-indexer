@@ -1,0 +1,1 @@
+ALTER TABLE public.swap DROP CONSTRAINT swap_pkey;

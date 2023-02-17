@@ -21,21 +21,13 @@ async def on_x_to_y(
 ) -> None:
     pool_address = x_to_y.data.target_address
 
-    pool = await models.Pool.get(
-        address=pool_address
-    )
-
-    from_token_id = pool.token_x_id
-    to_token_id = pool.token_y_id
-
     await models.Swap.create(
         pool_id=pool_address,
-        from_token_id=from_token_id,
-        to_token_id=to_token_id,
         hash=x_to_y.data.hash,
-        amount_in=x_to_y.parameter.dx,
-        amount_out=extract_amount(token_y_transfer),
+        dx=x_to_y.parameter.dx,
+        dy=extract_amount(token_y_transfer),
         sender=x_to_y.data.sender_address,
         receiver=x_to_y.parameter.to_dy,
-        timestamp=x_to_y.data.timestamp
+        timestamp=x_to_y.data.timestamp,
+        is_x_to_y=True,
     )

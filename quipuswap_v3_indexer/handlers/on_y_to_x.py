@@ -15,25 +15,18 @@ import quipuswap_v3_indexer.models as models
 async def on_y_to_x(
     _ctx: HandlerContext,
     y_to_x: Transaction[YToXParameter, V3PoolStorage],
-    token_y_transfer: Transaction[YToXTransferFa12Parameter, Fa12TokenStorage],
+    _token_y_transfer: Transaction[YToXTransferFa12Parameter, Fa12TokenStorage],
     token_x_transfer: Transaction[YToXTransferFa2Parameter, Fa2TokenStorage],
 ) -> None:
     pool_address = y_to_x.data.target_address
-    pool = await models.Pool.get(
-        address=pool_address
-    )
-
-    from_token_id = pool.token_y_id
-    to_token_id = pool.token_x_id
 
     await models.Swap.create(
         pool_id=pool_address,
-        from_token_id=from_token_id,
-        to_token_id=to_token_id,
         hash=y_to_x.data.hash,
-        amount_in=y_to_x.parameter.dy,
-        amount_out=extract_amount(token_x_transfer),
+        dx=extract_amount(token_x_transfer),
+        dy=y_to_x.parameter.dy,
         sender=y_to_x.data.sender_address,
         receiver=y_to_x.parameter.to_dx,
-        timestamp=y_to_x.data.timestamp
+        timestamp=y_to_x.data.timestamp,
+        is_x_to_y=False,
     )

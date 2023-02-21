@@ -9,6 +9,7 @@ class Pool(Model):
     address = fields.CharField(max_length=42, pk=True)
     token_x = fields.ForeignKeyField('models.Token', "token_x_pools")
     token_y = fields.ForeignKeyField('models.Token', "token_y_pools")
+    originated_at = fields.DatetimeField()
 
 
 class Token(Model):
@@ -20,7 +21,8 @@ class Token(Model):
     token_id = fields.TextField(null=True)
     name = fields.TextField(null=True)
     symbol = fields.TextField(null=True)
-    decimals = fields.IntField()
+    thumbnail_uri = fields.TextField(null=True)
+    decimals = fields.IntField(null=True)
 
 
 class Swap(Model):

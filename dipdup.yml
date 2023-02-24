@@ -5,26 +5,17 @@ logging: verbose
 
 database:
   kind: postgres
-  host: localhost
-  port: 5432
-  user: postgres
-  password: changeme
-  database: postgres
+  host: ${POSTGRES_HOST:-localhost}
+  port: ${POSTGRES_PORT:-5432}
+  user: ${POSTGRES_USER:-postgres}
+  password: ${POSTGRES_PASSWORD:-changeme}
+  database: ${POSTGRES_DB:-postgres}
   schema_name: public
 
 contracts:
-  # v3_pool:
-  #   address: KT1XfiFL1sfrncPUg8SNsgTFKsSS4e2fbT7f
-  #   typename: v3_pool
   v3_factory:
     address: KT1JNNMMGyNNy36Zo6pcgRTMLUZyqRrttMZ4
     typename: v3_factory
-  # fa12_token:
-  #   address: KT1K9gCRgaLRFKTErYt1wVxA3Frb9FjasjTV
-  #   typename: fa12_token
-  # fa2_token:
-  #   address: KT193D4vozYnhGJQVtw7CoxxqphqUEEwK6Vb
-  #   typename: fa2_token
 
 datasources:
   tzkt:

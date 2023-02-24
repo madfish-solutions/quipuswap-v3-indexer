@@ -14,7 +14,8 @@ RUN apt install gcc
 WORKDIR /home/dipdup/source
 COPY . /home/dipdup/source
 
-RUN pip3 install dipdup==5.1.4
+RUN pip3 install poetry==1.1.13
+RUN poetry install --no-dev
 
 ENTRYPOINT ["dipdup"]
 CMD ["run"]

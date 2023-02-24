@@ -17,5 +17,4 @@ COPY . /home/dipdup/source
 RUN pip3 install poetry==1.1.13
 RUN poetry install --no-dev
 
-ENTRYPOINT ["dipdup"]
-CMD ["run"]
+ENTRYPOINT ["poetry", "run", "dipdup", "run"]

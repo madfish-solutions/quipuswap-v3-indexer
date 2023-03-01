@@ -5,8 +5,8 @@ from dipdup.models import Model
 class Pool(Model):
     class Meta:
         table = 'pool'
-
-    address = fields.CharField(max_length=42, pk=True)
+    address = fields.CharField(max_length=42, pk=True, unique=True)
+    id = fields.IntField()
     token_x = fields.ForeignKeyField('models.Token', "token_x_pools")
     token_y = fields.ForeignKeyField('models.Token', "token_y_pools")
     originated_at = fields.DatetimeField()

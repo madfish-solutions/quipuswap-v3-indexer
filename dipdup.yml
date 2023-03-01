@@ -60,10 +60,14 @@ indexes:
     datasource: tzkt
     types:
       - origination
+      - transaction
     contracts:
       - v3_factory
     handlers:
       - callback: on_pool_origination
         pattern:
+          - type: transaction
+            destination: v3_factory
+            entrypoint: deploy_pool
           - type: origination
             source: v3_factory

@@ -1,13 +1,17 @@
 from dipdup.context import HandlerContext
 from dipdup.models import OperationData
+from dipdup.models import Transaction
 
 import requests
 
+from quipuswap_v3_indexer.types.v3_factory.parameter.deploy_pool import DeployPoolParameter
+from quipuswap_v3_indexer.types.v3_factory.storage import V3FactoryStorage
 import quipuswap_v3_indexer.models as models
 
 
 async def on_pool_origination(
     ctx: HandlerContext,
+    deploy_pool: Transaction[DeployPoolParameter, V3FactoryStorage],
     v3_pool_origination: OperationData,
 ) -> None:
     pool_address = v3_pool_origination.originated_contract_address
@@ -17,6 +21,7 @@ async def on_pool_origination(
 
     await models.Pool.create(
         address=pool_address,
+        id=int(deploy_pool.storage.pool_count) - 1,
         token_x_id=token_x.id,
         token_y_id=token_y.id,
         originated_at=v3_pool_origination.timestamp,

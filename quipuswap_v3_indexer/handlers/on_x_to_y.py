@@ -2,15 +2,14 @@ from typing import Any
 from dipdup.context import HandlerContext
 from dipdup.models import Transaction
 from quipuswap_v3_indexer.types.fa12_token.parameter.transfer import TransferParameter as Fa12TransferParameter
-from quipuswap_v3_indexer.types.fa12_token.storage import Fa12TokenStorage
 from quipuswap_v3_indexer.types.fa2_token.parameter.transfer import TransferParameter as Fa2TransferParameter
-from quipuswap_v3_indexer.types.fa2_token.storage import Fa2TokenStorage
 from quipuswap_v3_indexer.types.v3_pool.parameter.x_to_y import XToYParameter as XToYParameter
 from quipuswap_v3_indexer.types.v3_pool.storage import V3PoolStorage
 
 from quipuswap_v3_indexer.helpers import extract_amount
 
 import quipuswap_v3_indexer.models as models
+import quipuswap_v3_indexer.handlers.shared as shared
 
 
 async def on_x_to_y(
@@ -21,6 +20,7 @@ async def on_x_to_y(
 ) -> None:
     pool_address = x_to_y.data.target_address
 
+    await shared.update_sqrt_price(pool_address, x_to_y.storage.sqrt_price)
     await models.Swap.create(
         pool_id=pool_address,
         hash=x_to_y.data.hash,

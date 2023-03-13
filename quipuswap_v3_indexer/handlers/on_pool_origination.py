@@ -24,6 +24,7 @@ async def on_pool_origination(
         id=int(deploy_pool.storage.pool_count) - 1,
         token_x_id=token_x.id,
         token_y_id=token_y.id,
+        sqrt_price=v3_pool_origination.storage['sqrt_price'],
         originated_at=v3_pool_origination.timestamp,
     )
 

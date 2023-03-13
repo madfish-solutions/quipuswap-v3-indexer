@@ -9,6 +9,7 @@ class Pool(Model):
     id = fields.IntField()
     token_x = fields.ForeignKeyField('models.Token', "token_x_pools")
     token_y = fields.ForeignKeyField('models.Token', "token_y_pools")
+    sqrt_price = fields.DecimalField(100, 0)
     originated_at = fields.DatetimeField()
 
 

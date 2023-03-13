@@ -2,9 +2,7 @@ from typing import Any
 from dipdup.context import HandlerContext
 from dipdup.models import Transaction
 from quipuswap_v3_indexer.types.fa12_token.parameter.transfer import TransferParameter as YToXTransferFa12Parameter
-from quipuswap_v3_indexer.types.fa12_token.storage import Fa12TokenStorage
 from quipuswap_v3_indexer.types.fa2_token.parameter.transfer import TransferParameter as YToXTransferFa2Parameter
-from quipuswap_v3_indexer.types.fa2_token.storage import Fa2TokenStorage
 from quipuswap_v3_indexer.types.v3_pool.parameter.y_to_x import YToXParameter as YToXParameter
 from quipuswap_v3_indexer.types.v3_pool.storage import V3PoolStorage
 

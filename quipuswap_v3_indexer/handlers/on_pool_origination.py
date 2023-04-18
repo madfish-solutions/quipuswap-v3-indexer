@@ -75,10 +75,10 @@ async def get_or_create_token(raw_token):
         token = await models.Token.create(
             address=token_address,
             token_id=token_id,
-            name=metadata['name'],
-            symbol=metadata['symbol'],
-            decimals=metadata['decimals'],
-            thumbnail_uri=metadata['thumbnailUri'],
+            name=metadata.get('name') or "Unknown Token",
+            symbol=metadata.get('symbol') or "UNKNOWN",
+            decimals=metadata.get('decimals') or 0,
+            thumbnail_uri=metadata.get('thumbnailUri') or "",
         )
 
     return token

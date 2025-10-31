@@ -1,0 +1,87 @@
+spec_version: 3.0
+package: quipuswap_v3_indexer
+
+database:
+  kind: postgres
+  host: ${POSTGRES_HOST:-localhost}
+  port: ${POSTGRES_PORT:-5432}
+  user: ${POSTGRES_USER:-postgres}
+  password: ${POSTGRES_PASSWORD:-changeme}
+  database: ${POSTGRES_DB:-postgres}
+  schema_name: public
+
+contracts:
+  v3_factory:
+    address: KT1JNNMMGyNNy36Zo6pcgRTMLUZyqRrttMZ4
+    typename: v3_factory
+
+datasources:
+  tzkt:
+    kind: tezos.tzkt
+    url: https://api.tzkt.io
+    http:
+      retry_count: 10
+      retry_sleep: 1.0
+      retry_multiplier: 3.0
+      ratelimit_rate: 10
+      ratelimit_period: 0
+      ratelimit_sleep: 0.0
+      connection_limit: 10
+      connection_timeout: 60
+      request_timeout: 60
+      batch_size: 10
+      polling_interval: 1.0
+      replay_path: None
+      alias: None
+
+templates:
+  swaps:
+    kind: tezos.operations
+    datasources:
+      - tzkt
+    types:
+      - transaction
+    contracts:
+      - <pool>
+    handlers:
+      - callback: on_x_to_y
+        pattern:
+          - type: transaction
+            destination: <pool>
+            entrypoint: x_to_y
+          - type: transaction
+            destination: <token_x>
+            entrypoint: transfer
+          - type: transaction
+            destination: <token_y>
+            entrypoint: transfer
+      - callback: on_y_to_x
+        pattern:
+          - type: transaction
+            destination: <pool>
+            entrypoint: y_to_x
+          - type: transaction
+            destination: <token_y>
+            entrypoint: transfer
+          - type: transaction
+            destination: <token_x>
+            entrypoint: transfer
+
+indexes:
+  factories:
+    kind: tezos.operations
+    datasources:
+      - tzkt
+    types:
+      - origination
+      - transaction
+    contracts:
+      - v3_factory
+    handlers:
+      - callback: on_pool_origination
+        pattern:
+          - type: transaction
+            destination: v3_factory
+            entrypoint: deploy_pool
+          - type: origination
+            source: v3_factory

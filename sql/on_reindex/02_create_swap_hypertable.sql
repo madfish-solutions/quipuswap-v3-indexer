@@ -1,0 +1,1 @@
+SELECT create_hypertable('swap', 'timestamp');
